@@ -25,7 +25,8 @@ Dengan desain yang modern dan antarmuka yang mudah digunakan, HATI menjadi wadah
 ### Prasyarat
 
 - Node.js (versi 12 atau lebih baru)
-- Akun FIREBASE
+- Akun Firebase (untuk backend)
+- File Konfigurasi Firebase
 
 ### Langkah-langkah Instalasi
 
