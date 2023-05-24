@@ -31,7 +31,7 @@ Dengan desain yang modern dan antarmuka yang mudah digunakan, HATI menjadi wadah
 ### Langkah-langkah Instalasi
 
 1. Clone repositori ini: git clone https://github.com/johansyahdiaz/capstone-HATI.git
-2. Masuk ke direktori proyek
+2. Masuk ke direktori proyek.
 3. Instal dependensi: npm install
 4. Konfigurasikan file .env dengan mengisi detail koneksi ke Firebase.
 5. Pastikan Anda telah mengatur dan memasukkan file konfigurasi Firebase ke dalam direktori proyek.
