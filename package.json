@@ -1,0 +1,36 @@
+{
+  "name": "capstone-hati",
+  "version": "1.0.0",
+  "description": "Project Capstone HATI Team C23-M4009",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johansyahdiaz/capstone-HATI.git"
+  },
+  "author": "C23-M4009",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johansyahdiaz/capstone-HATI/issues"
+  },
+  "homepage": "https://github.com/johansyahdiaz/capstone-HATI#readme",
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
+    "babel-loader": "^9.1.2",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.4",
+    "eslint": "^8.41.0",
+    "html-webpack-plugin": "^5.5.1",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.84.0",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0",
+    "webpack-merge": "^5.9.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.3"
+  }
+}
