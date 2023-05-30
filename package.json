@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
-    "firebase-admin": "^11.8.0",
+    "firebase": "^9.22.1",
     "regenerator-runtime": "^0.13.11"
   }
 }
