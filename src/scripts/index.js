@@ -5,6 +5,9 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebase/config-firebase';
 import App from './app';
 
+// eslint-disable-next-line quotes
+import "./components/hati-footer";
+
 initializeApp(firebaseConfig);
 
 const app = new App({
