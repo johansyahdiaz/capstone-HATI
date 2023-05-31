@@ -35,8 +35,33 @@ html {
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: lavender;
+  background-color: #1B9C85;
 }
+
+/* navigation start*/
+nav{
+  margin: 0px 10px;
+  border: black 2px solid;
+  border-radius: 60px;
+
+}
+
+.navbar{
+  padding: 0px 6px;
+  font-family: "Merriweather", serif;
+  font-size: 18px;
+}
+
+.navbar-brand{
+  font-size: 30px;
+}
+
+.btn-login{
+  border-radius: 60px;
+  min-width: 50px;
+  min-height: 44px;
+}
+/* navigation end */
 
 main {
   width: 100%;

@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import 'regenerator-runtime';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/style.css';
@@ -7,6 +8,7 @@ import App from './app';
 
 // eslint-disable-next-line quotes
 import "./components/hati-footer";
+import "./components/hati-nav";
 
 initializeApp(firebaseConfig);
 
