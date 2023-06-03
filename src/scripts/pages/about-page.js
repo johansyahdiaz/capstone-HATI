@@ -107,14 +107,14 @@ const AboutPage = {
         padding: 15px;
         font-size: 1rem;
         letter-spacing: 5px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
       }
 
       .footer-developer-list ul {
         list-style-type: none;
         padding-top: 5px;
         padding-bottom: 6px;
-        background-image:url(./background-about-dev.png);
+        background-image:url(./images/background-about-dev.png);
         box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5), 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
       }
       
@@ -131,7 +131,6 @@ const AboutPage = {
       }
 
       @media (max-width: 802px) {
-
         .footer-developer-list li {
           display: block;
           margin-right: 0;
@@ -146,14 +145,14 @@ const AboutPage = {
       
       <div class="features">
         <div class="feature">
-          <img src="./marketplace-icon.png" alt="Marketplace Icon" onclick="window.location.href='#/'">
+          <img src="./images/marketplace-icon.png" alt="Marketplace Icon" onclick="window.location.href='#/'">
           <div class="feature-text">
             <h2 class="feature-title">Marketplace</h2>
             <p class="feature-description">Kami menyediakan platform online yang mempertumakan para petani dan pembeli. Melalui platform kami, Anda dapat menjual dan mencari produk hasil pertanian secara luas baik dalam negeri maupun luar negeri.</p>
           </div>
         </div>
         <div class="feature">
-          <img src="./news-icon.png" alt="News Icon" onclick="window.location.href='#/'">
+          <img src="./images/news-icon.png" alt="News Icon" onclick="window.location.href='#/'">
           <div class="feature-text">
             <h2 class="feature-title">Berita Pertanian Terkini</h2>
             <p class="feature-description">Kami juga menyajikan berita terkini seputar dunia pertanian. Dapatkan informasi terbaru mengenai produk hasil pertanian, teknik pertanian terbaru, dan berita pertanian menarik lainnya.</p>
@@ -163,7 +162,7 @@ const AboutPage = {
     </div>
 
     <div class="about-footer">
-    <div class="footer-developer">Tim Pengembang :</div>
+    <div class="footer-developer"><p> Tim Pengembang :</p></div>
     <div class="footer-developer-list">
       <ul>
         <li>- Bakkah Maulana Manshur </li>
