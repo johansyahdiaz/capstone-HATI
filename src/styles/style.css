@@ -46,6 +46,11 @@ nav{
 
 }
 
+#search-bar{
+  text-align: center;
+  margin: 2% 5%;
+}
+
 .navbar{
   padding: 0px 6px;
   font-family: "Merriweather", serif;
@@ -115,6 +120,20 @@ main {
   width: auto;
 }
 
+
+/* card product */
+.title-page-market{
+  text-align: center;
+}
+
+.listProduct{
+  margin: 0% 5%;
+}
+
+.card{
+  cursor: pointer;
+}
+/* end Card Produt */
 
 footer {
   text-align: center;
