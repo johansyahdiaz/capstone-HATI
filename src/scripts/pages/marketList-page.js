@@ -2,20 +2,7 @@ const MarketplacePage = {
   async render() {
     return `
     <h2 class="title-page-market"> Marketplace </h2>
-    <div class="row g-2 search-bar" id="search-bar">
-  <div class="col-sm-8">
-    <div class="form-floating">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <label for="floatingInputGrid">Cari di HATI</label>
-    </div>
-  </div>
-  <div class="col-sm">
-    <div class="form-floating">
-    <button class="btn btn-outline-success" type="submit">Search</button>
-    </div>
-  </div>
-    </div>
-    <div class="row row-cols-1 row-cols-md-6 g-4 listProduct">
+    <div class="row row-cols-1 row-cols-md-6 g-4 listProduct" id="Card-Product">
     <div class="col">
     <div class="card" onclick="window.location.href = 'https://www.google.com';">
     <img src="./images/produkPic.jpg" class="card-img-top" alt="...">
@@ -297,8 +284,14 @@ const MarketplacePage = {
   </div>
       `;
   },
-  async afterRender() {
-    console.log('Marketplace');
-  },
+
+//   async afterRender() {
+//     const List = await ();
+//     const listContainer = document.querySelector('#Card-Product');
+//     List.forEach(() => {
+//       listContainer.innerHTML += createRestaurantsItemTemplate();
+//     });
+//   },
 };
+
 export default MarketplacePage;
