@@ -285,13 +285,13 @@ const MarketplacePage = {
       `;
   },
 
-//   async afterRender() {
-//     const List = await ();
-//     const listContainer = document.querySelector('#Card-Product');
-//     List.forEach(() => {
-//       listContainer.innerHTML += createRestaurantsItemTemplate();
-//     });
-//   },
+  async afterRender() {
+    // const List = await ();
+    // const listContainer = document.querySelector('#Card-Product');
+    // List.forEach(() => {
+    //   listContainer.innerHTML += createRestaurantsItemTemplate();
+    // });
+  },
 };
 
 export default MarketplacePage;

@@ -8,9 +8,9 @@ class UserInfo {
   static getUserInfo() {
     const uid = localStorage.getItem('uid');
     const email = localStorage.getItem('email');
-    const name = localStorage.getItem('name');
+    const username = localStorage.getItem('username');
 
-    const userInfo = { uid, email, name };
+    const userInfo = { uid, email, username };
 
     return userInfo;
   }

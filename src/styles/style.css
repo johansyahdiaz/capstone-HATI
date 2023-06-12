@@ -61,6 +61,12 @@ nav{
   font-size: 30px;
 }
 
+#profile-button{
+  width: 30px;
+  border-radius: 50%;
+}
+
+
 .btn-login{
   border-radius: 60px;
   min-width: 50px;
@@ -120,6 +126,225 @@ main {
   width: auto;
 }
 
+.profile-article{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.profile-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  background-color: #FAFFEF;
+  padding: 50px;
+  border-radius: 15px;
+  border: 2px solid black;
+  gap: 1rem;
+}
+.profile-container form div img{
+  width: 200px;
+  height: 200px;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #1B9C85;
+}
+.profile-container form{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+}
+.profile-container input{
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+.profile-container textarea{
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+.profile-container button{
+  border-radius: 27px;
+  padding: 10px;
+  border-style: none;
+  border: 2px solid #1B9C85;
+  background-color: #1B9C85;
+  width: 40%;
+  color: white;
+  transition: 0.3s;
+}
+#logout-btn{
+  border: 2px solid #b80d0d;
+  background-color: #b80d0d;
+}
+#logout-btn:hover{
+  border: 2px solid #b80d0d;
+  background-color: white;
+  color: #b80d0d;
+}
+
+.profile-container button:hover{
+  border-style: none;
+  background-color: white;
+  border: 2px solid #1B9C85;
+  width: 40%;
+  color: #1B9C85;
+}
+
+.add-product-article{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-product-article h2{
+  text-align: center;
+}
+.add-product-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  background-color: #FAFFEF;
+  padding: 50px;
+  border-radius: 15px;
+  border: 2px solid black;
+  gap: 1rem;
+  position: relative;
+}
+
+.add-product-article{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.add-product-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  background-color: #FAFFEF;
+  padding: 50px;
+  border-radius: 15px;
+  border: 2px solid black;
+  gap: 1rem;
+}
+.add-product-container form div img{
+  border-radius: 15px;
+  height: 200px;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid #1B9C85;
+}
+.add-product-container form{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+}
+.add-product-container input{
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+.add-product-container textarea{
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+.add-product-container button{
+  border-radius: 27px;
+  padding: 10px;
+  border-style: none;
+  border: 2px solid #1B9C85;
+  background-color: #1B9C85;
+  width: 40%;
+  color: white;
+  transition: 0.3s;
+}
+.add-product-container button:hover{
+  border-style: none;
+  background-color: white;
+  border: 2px solid #1B9C85;
+  width: 40%;
+  color: #1B9C85;
+}
+
+.product-article{
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.product-container{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  background-color: #FAFFEF;
+  padding: 50px;
+  border-radius: 15px;
+  border: 2px solid black;
+  gap: 1rem;
+}
+#addProduct{
+  position: absolute;
+  right: 20px;
+  border-radius: 27px;
+  padding: 10px;
+  text-align: center;
+  border-style: none;
+  border: 2px solid #1B9C85;
+  background-color: #1B9C85;
+  width: 15%;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s;
+  text-decoration: none;
+}
+#addProduct:hover{
+  border-style: none;
+  background-color: white;
+  border: 2px solid #1B9C85;
+  color: #1B9C85;
+}
+
+#product-list{
+  display: flex;
+  width: 100%;
+  justify-content: left;
+  padding: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#product-list h4{
+  text-align: center;
+  width: 100%;
+}
+
+.product-item img{
+  max-width: 250px;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
 
 /* card product */
 .title-page-market{

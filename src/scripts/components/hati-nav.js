@@ -30,12 +30,16 @@ class hatiNav extends HTMLElement {
                 </li>
               </ul>
               <form class="d-flex" role="search">
-                <a href="#/logout" class="btn btn-outline-dark btn-login" type="submit" id="btn-login">Logout</a>
+                <a href="#/profile" class="btn btn-outline-dark btn-login" type="submit" id="btn-login"><img id="profile-button" src="./images/profile.png"></a>
               </form>
             </div>
           </div>
         </nav>
         `;
+      const profileButton = document.querySelector('#profile-button');
+      profileButton.addEventListener('click', () => {
+        location.href = '#/profile';
+      });
     } else {
       this.innerHTML = `
         <nav class="navbar navbar-expand-lg bg-light">
