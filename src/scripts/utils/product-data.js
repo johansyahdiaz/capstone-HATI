@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import {
-  get, getDatabase, ref, set, child,
+  get, getDatabase, ref, set, child, update, remove,
 } from 'firebase/database';
 import {
   getStorage, uploadBytes, ref as refs, getDownloadURL,
@@ -41,6 +41,63 @@ class ProductData {
     try {
       const product = await get(child(dbRef, 'products/'));
       return await product.val();
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  static async getProductById(id) {
+    const dbRef = ref(getDatabase());
+
+    try {
+      const product = await get(child(dbRef, `products/${id}`));
+      return await product.val();
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  static async deleteProduct(id) {
+    const dbRef = ref(getDatabase());
+    try {
+      remove(child(dbRef, `products/${id}`));
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  static async updateProduct(product, image) {
+    const db = getDatabase();
+    const storage = getStorage();
+    const storageRef = refs(storage, `users/${product.uid}/products/${product.name}`);
+
+    try {
+      if (image) {
+        uploadBytes(storageRef, image).then(() => {
+          getDownloadURL(refs(storageRef)).then((url) => {
+            update(ref(db, `products/${product.id}`), {
+              name: product.name,
+              price: product.price,
+              desc: product.desc,
+              seller: product.seller,
+              image: url,
+            }).then(() => {
+              location.href = '#/profile';
+              location.reload();
+            });
+          });
+        });
+      } else {
+        update(ref(db, `products/${product.id}`), {
+          name: product.name,
+          price: product.price,
+          desc: product.desc,
+          seller: product.seller,
+        }).then(() => {
+          location.href = '#/profile';
+          location.reload();
+        });
+      }
     } catch (e) {
       console.log(e.message);
     }
