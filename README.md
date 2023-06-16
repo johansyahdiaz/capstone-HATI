@@ -1,6 +1,7 @@
 # Capstone Project - HATI (Hasil Tani)
 
 [![GitHub Issues](https://img.shields.io/github/issues/johansyahdiaz/capstone-HATI.svg)](https://github.com/johansyahdiaz/capstone-HATI/issues)
+[![GitHub Commits](https://img.shields.io/github/commits-since/johansyahdiaz/capstone-HATI/latest.svg)](https://github.com/johansyahdiaz/capstone-HATI/commits)
 
 <div align="center">
   <img src="src/public/favicon.png" alt="Logo" width="200px">
