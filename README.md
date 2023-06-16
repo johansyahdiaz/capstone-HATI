@@ -1,9 +1,10 @@
 # Capstone Project - HATI (Hasil Tani)
 
 [![GitHub Issues](https://img.shields.io/github/issues/johansyahdiaz/capstone-HATI.svg)](https://github.com/johansyahdiaz/capstone-HATI/issues)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/johansyahdiaz/capstone-HATI.svg)](https://github.com/johansyahdiaz/capstone-HATI/commits)
 
 <div align="center">
-  <img src="logo.png" alt="Logo" width="200px">
+  <img src="src/public/favicon.png" alt="Logo" width="200px">
 </div>
 
 ## Deskripsi Proyek

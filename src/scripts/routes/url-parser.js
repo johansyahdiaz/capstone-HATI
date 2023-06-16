@@ -1,4 +1,8 @@
 const UrlParser = {
+  parseActiveUrlCaseSensitive() {
+    const url = window.location.hash.slice(1);
+    return this._urlSplitter(url);
+  },
   parseActiveUrlWithCombiner() {
     const url = window.location.hash.slice(1).toLowerCase();
     const splittedUrl = this._urlSplitter(url);

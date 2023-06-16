@@ -101,7 +101,7 @@ const ProfilePage = {
 
     const product = await ProductData.getProduct();
     if (product) {
-      Object.values(product).forEach((item) => {
+      Object.values(product).reverse().forEach((item) => {
         const productItem = document.createElement('div');
         productItem.innerHTML = `
             <div class="card">
@@ -115,15 +115,19 @@ const ProfilePage = {
             </div>
           `;
         productItem.setAttribute('class', 'product-item');
+        productItem.addEventListener('click', (event) => {
+          event.preventDefault();
+          location.href = `#/edit-product/${item.id}`;
+        });
         if (item.uid === UserInfo.getUserInfo().uid) {
           productUserList.appendChild(productItem);
         }
-        if (!productUserList.childElementCount) {
-          const productText = document.createElement('h4');
-          productText.innerText = 'You have no product.';
-          productUserList.appendChild(productText);
-        }
       });
+      if (productUserList.childElementCount === 0) {
+        const productText = document.createElement('h4');
+        productText.innerText = 'You have no product.';
+        productUserList.appendChild(productText);
+      }
     } else {
       const productText = document.createElement('h4');
       productText.innerText = 'Product does not exist.';
