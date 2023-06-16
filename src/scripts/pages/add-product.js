@@ -58,6 +58,7 @@ const AddProductPage = {
       } catch (e) {
         console.log(e.message);
       } finally {
+        // eslint-disable-next-line no-alert
         alert('Succesfully Uploaded.');
       }
     });
