@@ -7,6 +7,8 @@ import AdminPage from '../pages/admin-page';
 import MarketplacePage from '../pages/marketList-page';
 import ProfilePage from '../pages/profile';
 import AddProductPage from '../pages/add-product';
+import EditProductPage from '../pages/edit-product-page';
+import DetailProductPage from '../pages/detail-product';
 
 const routes = {
   '/': HomePage,
@@ -18,6 +20,8 @@ const routes = {
   '/admin': AdminPage,
   '/profile': ProfilePage,
   '/add-product': AddProductPage,
+  '/edit-product/:id': EditProductPage,
+  '/detail-product/:id': DetailProductPage,
 };
 
 export default routes;

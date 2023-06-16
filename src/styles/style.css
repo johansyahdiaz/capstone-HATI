@@ -77,6 +77,10 @@ nav{
 main {
   width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .auth-article{
   display: flex;
@@ -131,6 +135,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 .profile-container{
   display: flex;
@@ -186,11 +191,22 @@ main {
   border: 2px solid #b80d0d;
   background-color: #b80d0d;
 }
+
+#delete-product{
+  border: 2px solid #b80d0d;
+  background-color: #b80d0d;
+}
 #logout-btn:hover{
   border: 2px solid #b80d0d;
   background-color: white;
   color: #b80d0d;
 }
+#delete-product:hover{
+  border: 2px solid #b80d0d;
+  background-color: white;
+  color: #b80d0d;
+}
+
 
 .profile-container button:hover{
   border-style: none;
@@ -205,6 +221,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .add-product-article h2{
@@ -223,12 +240,6 @@ main {
   position: relative;
 }
 
-.add-product-article{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 .add-product-container{
   display: flex;
   flex-direction: column;
@@ -291,6 +302,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 .product-container{
   position: relative;
@@ -346,6 +358,115 @@ main {
   object-fit: cover;
 }
 
+#btn-product{
+  display: flex;
+  justify-content: left;
+  width: 80%;
+}
+
+.product-detail-article{
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+}
+.product-detail-article h2{
+  width: 100%;
+  text-align: left;
+}
+#store-detail{
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+  border-style: none;
+  border: 2px solid #1B9C85;
+  background-color: white;
+}
+
+.product-detail-article button img{
+  width: 50px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border: 2px solid #1B9C85;
+}
+
+#product-detail-container{
+  display: inline-grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: fit-content;
+  background-color: #FAFFEF;
+  padding: 50px;
+  border-radius: 15px;
+  border: 2px solid black;
+  width: 80%;
+}
+
+#product-detail-container img{
+  width: 100%;
+  border-radius: 15px;
+  border: 2px solid #1B9C85;
+}
+
+#product-detail-container button{
+  border-radius: 27px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+  width: 50%;
+  margin-bottom: 10px;
+  color: white;
+  border-style: none;
+  border: 2px solid #1B9C85;
+  background-color: #1B9C85;
+  transition: 0.3s;
+}
+
+#product-detail-container button:hover{
+  border-style: none;
+  background-color: white;
+  border: 2px solid #1B9C85;
+  color: #1B9C85;
+}
+
+#product-detail-container div{
+  margin-left: 15px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#more-product-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content;
+  background-color: #FAFFEF;
+  padding: 50px;
+  border-radius: 15px;
+  border: 2px solid black;
+  gap: 1rem;
+  width: 80%;
+}
+
+#more-product{
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: left;
+}
+
 /* card product */
 .title-page-market{
   text-align: center;
@@ -357,6 +478,11 @@ main {
 
 .card{
   cursor: pointer;
+}
+
+.card img {
+  object-fit: cover;
+  aspect-ratio: 4/3;
 }
 /* end Card Produt */
 
