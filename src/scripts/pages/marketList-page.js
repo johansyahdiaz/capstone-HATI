@@ -2,7 +2,7 @@ const MarketplacePage = {
   async render() {
     return `
     <h2 class="title-page-market"> Marketplace </h2>
-    <div class="row row-cols-1 row-cols-md-6 g-4 listProduct" id="Card-Product">
+    <div class="row row-cols-1 row-cols-md-4 g-4 listProduct" id="Card-Product">
     <div class="col">
     <div class="card" onclick="window.location.href = 'https://www.google.com';">
     <img src="./images/produkPic.jpg" class="card-img-top" alt="...">
