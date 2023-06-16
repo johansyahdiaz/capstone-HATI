@@ -1,7 +1,15 @@
+/* eslint-disable no-inner-declarations */
+/* eslint-disable consistent-return */
+import UserData from '../utils/user-data';
+import UserInfo from '../utils/user-info';
+
 const AdminPage = {
   async render() {
-    /* html */
-    return `
+    const user = await UserData.getUserData(UserInfo.getUserInfo().uid);
+    console.log(user);
+
+    if (user.isAdmin) {
+      return `
       <style>
         .admin-page {
           display: flex;
@@ -158,80 +166,89 @@ const AdminPage = {
         </div>
       </div>
     `;
+    }
+    alert('403 : Unauthorized');
+    location.href = '#/';
+
+    /* html */
   },
   async afterRender() {
-    const contentContainer = document.getElementById('content-container');
-    const loadingContainer = document.getElementById('loading-container');
+    const user = await UserData.getUserData(UserInfo.getUserInfo().uid);
+    console.log(user);
 
-    function showLoadingIcon() {
-      loadingContainer.style.display = 'flex';
-    }
+    if (user.isAdmin) {
+      const contentContainer = document.getElementById('content-container');
+      const loadingContainer = document.getElementById('loading-container');
 
-    function hideLoadingIcon() {
-      loadingContainer.style.display = 'none';
-    }
+      function showLoadingIcon() {
+        loadingContainer.style.display = 'flex';
+      }
 
-    // eslint-disable-next-line no-undef
-    menuBerita.addEventListener('click', () => {
-      showLoadingIcon();
-      setTimeout(() => {
+      function hideLoadingIcon() {
+        loadingContainer.style.display = 'none';
+      }
+
+      // eslint-disable-next-line no-undef
+      menuBerita.addEventListener('click', () => {
+        showLoadingIcon();
+        setTimeout(() => {
         // Menghapus elemen HTML di luar elemen inner
-        const parentElement = contentContainer.parentNode;
-        while (parentElement.firstChild !== contentContainer) {
-          parentElement.removeChild(parentElement.firstChild);
-        }
-        contentContainer.innerHTML = `
+          const parentElement = contentContainer.parentNode;
+          while (parentElement.firstChild !== contentContainer) {
+            parentElement.removeChild(parentElement.firstChild);
+          }
+          contentContainer.innerHTML = `
           <h2>Berita</h2>
           <p>Ini adalah halaman berita.</p>
         `;
-        hideLoadingIcon();
-      }, 1000);
-    });
+          hideLoadingIcon();
+        }, 1000);
+      });
 
-    // eslint-disable-next-line no-undef
-    menuVerifikasi.addEventListener('click', () => {
-      showLoadingIcon();
-      setTimeout(() => {
+      // eslint-disable-next-line no-undef
+      menuVerifikasi.addEventListener('click', () => {
+        showLoadingIcon();
+        setTimeout(() => {
         // Menghapus elemen HTML di luar elemen inner
-        const parentElement = contentContainer.parentNode;
-        while (parentElement.firstChild !== contentContainer) {
-          parentElement.removeChild(parentElement.firstChild);
-        }
-        contentContainer.innerHTML = `
+          const parentElement = contentContainer.parentNode;
+          while (parentElement.firstChild !== contentContainer) {
+            parentElement.removeChild(parentElement.firstChild);
+          }
+          contentContainer.innerHTML = `
           <h2>Verifikasi</h2>
           <p>Ini adalah halaman verifikasi.</p>
         `;
-        hideLoadingIcon();
-      }, 1000);
-    });
+          hideLoadingIcon();
+        }, 1000);
+      });
 
-    // eslint-disable-next-line no-undef
-    menuToko.addEventListener('click', () => {
-      showLoadingIcon();
-      setTimeout(() => {
+      // eslint-disable-next-line no-undef
+      menuToko.addEventListener('click', () => {
+        showLoadingIcon();
+        setTimeout(() => {
         // Menghapus elemen HTML di luar elemen inner
-        const parentElement = contentContainer.parentNode;
-        while (parentElement.firstChild !== contentContainer) {
-          parentElement.removeChild(parentElement.firstChild);
-        }
-        contentContainer.innerHTML = `
+          const parentElement = contentContainer.parentNode;
+          while (parentElement.firstChild !== contentContainer) {
+            parentElement.removeChild(parentElement.firstChild);
+          }
+          contentContainer.innerHTML = `
           <h2>Toko</h2>
           <p>Ini adalah halaman toko.</p>
         `;
-        hideLoadingIcon();
-      }, 1000);
-    });
+          hideLoadingIcon();
+        }, 1000);
+      });
 
-    // eslint-disable-next-line no-undef
-    menuProduk.addEventListener('click', () => {
-      showLoadingIcon();
-      setTimeout(() => {
+      // eslint-disable-next-line no-undef
+      menuProduk.addEventListener('click', () => {
+        showLoadingIcon();
+        setTimeout(() => {
         // Menghapus elemen HTML di luar elemen inner
-        const parentElement = contentContainer.parentNode;
-        while (parentElement.firstChild !== contentContainer) {
-          parentElement.removeChild(parentElement.firstChild);
-        }
-        contentContainer.innerHTML = `
+          const parentElement = contentContainer.parentNode;
+          while (parentElement.firstChild !== contentContainer) {
+            parentElement.removeChild(parentElement.firstChild);
+          }
+          contentContainer.innerHTML = `
           <h2>Produk</h2>
           <div class="product-list">
             <div class="product-item">
@@ -260,9 +277,10 @@ const AdminPage = {
             </div>
           </div>
         `;
-        hideLoadingIcon();
-      }, 1000);
-    });
+          hideLoadingIcon();
+        }, 1000);
+      });
+    }
   },
 };
 

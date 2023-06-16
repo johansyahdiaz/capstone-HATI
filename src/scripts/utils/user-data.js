@@ -34,9 +34,11 @@ class UserData {
     const db = getDatabase();
     update(ref(db, `users/${uid}`), {
       name: userData.name,
-      phone: userData.phone,
-      socmed: userData.socmed,
-      desc: userData.desc,
+      email: userData.email,
+      uid: userData.uid,
+      phone: userData.phone ? userData.phone : '',
+      socmed: userData.socmed ? userData.socmed : '',
+      desc: userData.desc ? userData.desc : '',
     });
   }
 
