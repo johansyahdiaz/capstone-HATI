@@ -3,7 +3,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/johansyahdiaz/capstone-HATI.svg)](https://github.com/johansyahdiaz/capstone-HATI/issues)
 
 <div align="center">
-  <img src="src/public/Images/favicon.png" alt="Logo" width="200px">
+  <img src="src/public/favicon.png" alt="Logo" width="200px">
 </div>
 
 ## Deskripsi Proyek
