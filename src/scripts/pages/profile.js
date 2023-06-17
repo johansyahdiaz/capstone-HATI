@@ -77,7 +77,7 @@ const ProfilePage = {
     profileForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const userData = {
-        name: '', phone: '', socmed: '', desc: '', seller: '',
+        name: '', phone: '', socmed: '', desc: '', seller: '', email: '', uid: '',
       };
 
       userData.name = document.forms.profileForm.userName.value;

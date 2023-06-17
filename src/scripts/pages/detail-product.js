@@ -43,10 +43,16 @@ const DetailProductPage = {
     <div>
       <h3>${product.name}</h3>
       <p>${Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.price)}</p>
-      <button>Pesan Sekarang</button>
+      <button id="buy-now">Hubungi Untuk Memesan</button>
       <p>${product.desc}</p>
     </div>
     `;
+
+    const buyNow = document.querySelector('#buy-now');
+    buyNow.addEventListener('click', (event) => {
+      event.preventDefault();
+      location.href = `https://wa.me/${store.phone}`;
+    });
 
     storeDetail.innerHTML = `
         <img src="${store.photo ? store.photo : './images/profile.png'}">
