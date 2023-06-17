@@ -32,6 +32,7 @@ const DetailProductPage = {
 
     const product = await ProductData.getProductById(url.id);
     const productAll = await ProductData.getProduct();
+    console.log(typeof productAll);
     const store = await UserData.getUserData(product.uid);
 
     const productDetailContainer = document.querySelector('#product-detail-container');
@@ -64,7 +65,7 @@ const DetailProductPage = {
       location.href = `#/store/${product.uid}`;
     });
 
-    Object.values(productAll).slice(-6).reverse().forEach((item) => {
+    Object.values(productAll).reverse().forEach((item) => {
       const productItem = document.createElement('div');
       productItem.innerHTML = `
           <div class="card">

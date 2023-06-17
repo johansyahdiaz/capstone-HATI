@@ -514,8 +514,9 @@ main {
 #more-product{
   width: 100%;
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
   justify-content: left;
+  gap: 20px;
 }
 
 /* card product */
