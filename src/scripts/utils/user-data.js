@@ -7,6 +7,7 @@ import {
 import {
   getStorage, uploadBytes, ref as refs, getDownloadURL,
 } from 'firebase/storage';
+import ProductData from './product-data';
 
 class UserData {
   static async createUserData(username, email, uid) {
@@ -60,6 +61,23 @@ class UserData {
       phone: userData.phone ? userData.phone : '',
       socmed: userData.socmed ? userData.socmed : '',
       desc: userData.desc ? userData.desc : '',
+    }).then(() => {
+      ProductData.getProduct().then((products) => {
+        Object.values(products).forEach((item) => {
+          const product = {
+            name: item.name,
+            price: item.price,
+            seller: userData.name,
+            image: item.image,
+            desc: item.desc,
+            id: item.id,
+            uid: userData.uid,
+          };
+          if (item.uid === userData.uid) {
+            ProductData.updateProduct(product, null);
+          }
+        });
+      });
     });
   }
 

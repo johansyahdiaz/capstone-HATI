@@ -41,7 +41,7 @@ const StorePage = {
     </div>
     `;
 
-    Object.values(productAll).slice(-6).reverse().forEach((item) => {
+    Object.values(productAll).reverse().forEach((item) => {
       const productItem = document.createElement('div');
       productItem.innerHTML = `
           <div class="card">

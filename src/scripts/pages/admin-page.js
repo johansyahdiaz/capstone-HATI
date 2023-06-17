@@ -15,6 +15,7 @@ const AdminPage = {
           display: flex;
           min-width: 100%;
           min-height: 1000px;
+          padding: 15px;
         }
 
         .navbar-admin {
@@ -53,8 +54,9 @@ const AdminPage = {
 
         .content {
           flex: 1;
-          padding: 20px;
-          background-color: #1B9C85;
+          margin: 0 20px 0 20px;
+          padding: 50px;
+          background-color: #eaeaea;
           position: relative;
         }
 
