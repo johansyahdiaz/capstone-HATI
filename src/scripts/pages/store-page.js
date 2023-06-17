@@ -2,24 +2,16 @@ import UrlParser from '../routes/url-parser';
 import ProductData from '../utils/product-data';
 import UserData from '../utils/user-data';
 
-const DetailProductPage = {
+const StorePage = {
   async render() {
     return `
-    <article class="product-detail-article">
-      <div id="product-detail-container">
+    <article class="store-article">
+      <div id="store-container">
         
-      </div>
-      
-      <div id="btn-product">
-        <button id="store-detail">
-          <img>
-          <small class="text-muted">Penjual 
-          <i class="fa-solid fa-circle-check fa-lg"></i></small>
-        </button>
       </div>
 
       <div id="more-product-container">
-        <h2>Other Items</h2>
+        <h2>Products</h2>
         <div id="more-product">
 
         </div>
@@ -30,33 +22,24 @@ const DetailProductPage = {
   async afterRender() {
     const url = UrlParser.parseActiveUrlCaseSensitive();
 
-    const product = await ProductData.getProductById(url.id);
     const productAll = await ProductData.getProduct();
-    const store = await UserData.getUserData(product.uid);
+    const store = await UserData.getUserData(url.id);
 
-    const productDetailContainer = document.querySelector('#product-detail-container');
-    const storeDetail = document.querySelector('#store-detail');
+    const productDetailContainer = document.querySelector('#store-container');
     const moreProduct = document.querySelector('#more-product');
 
     productDetailContainer.innerHTML = `
-    <img src = "${product.image}">
+    <img src = "${store.photo ? store.photo : './images/profile.png'}">
     <div>
-      <h3>${product.name}</h3>
-      <p>${Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.price)}</p>
-      <button>Pesan Sekarang</button>
-      <p>${product.desc}</p>
+      <h3>${store.name}</h3>
+      <p>${store.desc ? store.desc : 'This store has no description.'}</p>
+    </div>
+    <div class="store-contact">
+        <h4>Contact</h4>
+        <p>${store.phone ? store.phone : 'This store has no whatsapp.'}</p>
+        <p>${store.socmed ? store.socmed : 'This store has no instagram.'}</p>
     </div>
     `;
-
-    storeDetail.innerHTML = `
-        <img src="${store.photo ? store.photo : './images/profile.png'}">
-        <small class="text-muted">${store.name} 
-        <i class="fa-solid fa-circle-check fa-lg"></i></small>
-    `;
-    storeDetail.addEventListener('click', (event) => {
-      event.preventDefault();
-      location.href = `#/store/${product.uid}`;
-    });
 
     Object.values(productAll).slice(-6).reverse().forEach((item) => {
       const productItem = document.createElement('div');
@@ -76,7 +59,7 @@ const DetailProductPage = {
         event.preventDefault();
         location.href = `#/detail-product/${item.id}`;
       });
-      if (item.uid === product.uid && item.id !== product.id) {
+      if (item.uid === url.id) {
         moreProduct.appendChild(productItem);
       }
     });
@@ -87,4 +70,4 @@ const DetailProductPage = {
     }
   },
 };
-export default DetailProductPage;
+export default StorePage;

@@ -12,8 +12,13 @@ class Auth {
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
         const { user } = result;
+        const userData = { name: user.displayName, email: user.email, uid: user.uid };
 
-        UserData.createUserData(user.displayName, user.email, user.uid);
+        UserData.getUserData(user.uid).then(() => {
+          UserData.updateUserData(userData, user.uid);
+        }).catch(() => {
+          UserData.createUserData(user.displayName, user.email, user.uid);
+        });
 
         UserInfo.setUserInfo(user.email, user.uid, user.displayName);
 
