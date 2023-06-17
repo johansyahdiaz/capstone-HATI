@@ -1,19 +1,20 @@
 /* eslint-disable no-inner-declarations */
 /* eslint-disable consistent-return */
+import ProductData from '../utils/product-data';
 import UserData from '../utils/user-data';
 import UserInfo from '../utils/user-info';
 
 const AdminPage = {
   async render() {
     const user = await UserData.getUserData(UserInfo.getUserInfo().uid);
-    console.log(user);
 
     if (user.isAdmin) {
       return `
       <style>
         .admin-page {
           display: flex;
-          height: 100vh;
+          min-width: 100%;
+          min-height: 1000px;
         }
 
         .navbar-admin {
@@ -74,18 +75,16 @@ const AdminPage = {
         }
 
         .product-item {
-          height: 30px;
-          width: 100%;
           background-color: #ffffff;
           display: flex;
+          flex-direction: column;
           align-items: center;
           padding: 10px;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .product-image {
-          width: 30px;
-          height: 30px;
+          width: 250px;
           margin-right: 10px;
           background-color: #cccccc;
         }
@@ -104,6 +103,8 @@ const AdminPage = {
 
         .product-actions button.edit {
           color: #00aaff;
+          text-decoration: none;
+          cursor: pointer;
         }
 
         .product-actions button.delete {
@@ -174,7 +175,6 @@ const AdminPage = {
   },
   async afterRender() {
     const user = await UserData.getUserData(UserInfo.getUserInfo().uid);
-    console.log(user);
 
     if (user.isAdmin) {
       const contentContainer = document.getElementById('content-container');
@@ -225,7 +225,7 @@ const AdminPage = {
       // eslint-disable-next-line no-undef
       menuToko.addEventListener('click', () => {
         showLoadingIcon();
-        setTimeout(() => {
+        setTimeout(async () => {
         // Menghapus elemen HTML di luar elemen inner
           const parentElement = contentContainer.parentNode;
           while (parentElement.firstChild !== contentContainer) {
@@ -233,8 +233,37 @@ const AdminPage = {
           }
           contentContainer.innerHTML = `
           <h2>Toko</h2>
-          <p>Ini adalah halaman toko.</p>
+          <div class="product-list" id="product-list-admin">
+            
+          </div>
         `;
+          const store = await UserData.getAllUsers();
+          const productList = document.querySelector('#product-list-admin');
+          Object.values(store).reverse().forEach((item) => {
+            const productItem = document.createElement('div');
+            console.log(item);
+            productItem.innerHTML = `
+              <div class="product-item">
+                <img class="product-image" src="${item.photo ? item.photo : './images/profilePic.png'}">
+                <p class="product-name">${item.name}</p>
+                <div class="product-actions">
+                  <a class="edit" style="text-decoration: none; cursor: pointer;" href="#/store/${item.uid}">Detail</a>
+                  <button class="delete" id="remove-${item.uid}">Delete</button>
+                </div>
+              </div>
+              `;
+            if (!item.isAdmin) {
+              productList.appendChild(productItem);
+              document.querySelector(`#remove-${item.uid}`).addEventListener('click', (event) => {
+                event.preventDefault();
+                if (item.uid) {
+                  UserData.deleteUsers(item.uid).then(() => {
+                    document.querySelector('#menuToko').click();
+                  });
+                }
+              });
+            }
+          });
           hideLoadingIcon();
         }, 1000);
       });
@@ -242,41 +271,41 @@ const AdminPage = {
       // eslint-disable-next-line no-undef
       menuProduk.addEventListener('click', () => {
         showLoadingIcon();
-        setTimeout(() => {
+        setTimeout(async () => {
         // Menghapus elemen HTML di luar elemen inner
           const parentElement = contentContainer.parentNode;
           while (parentElement.firstChild !== contentContainer) {
             parentElement.removeChild(parentElement.firstChild);
           }
+          const product = await ProductData.getProduct();
           contentContainer.innerHTML = `
           <h2>Produk</h2>
-          <div class="product-list">
-            <div class="product-item">
-              <div class="product-image"></div>
-              <div class="product-name">Produk 1</div>
-              <div class="product-actions">
-                <button class="edit">Edit</button>
-                <button class="delete">Delete</button>
-              </div>
-            </div>
-            <div class="product-item">
-              <div class="product-image"></div>
-              <div class="product-name">Produk 2</div>
-              <div class="product-actions">
-                <button class="edit">Edit</button>
-                <button class="delete">Delete</button>
-              </div>
-            </div>
-            <div class="product-item">
-              <div class="product-image"></div>
-              <div class="product-name">Produk 3</div>
-              <div class="product-actions">
-                <button class="edit">Edit</button>
-                <button class="delete">Delete</button>
-              </div>
-            </div>
+          <div class="product-list" id="product-list-admin">
+            
           </div>
         `;
+          const productList = document.querySelector('#product-list-admin');
+          console.log(productList);
+          Object.values(product).reverse().forEach((item) => {
+            const productItem = document.createElement('div');
+            productItem.innerHTML = `
+            <div class="product-item">
+              <img class="product-image" src="${item.image}">
+              <p class="product-name">${item.name}</p>
+              <div class="product-actions">
+                <a class="edit" style="text-decoration: none; cursor: pointer;" href="#/detail-product/${item.id}">Detail</a>
+                <button class="delete" id="remove-${item.id}">Delete</button>
+              </div>
+            </div>
+            `;
+            productList.appendChild(productItem);
+            document.querySelector(`#remove-${item.id}`).addEventListener('click', (event) => {
+              event.preventDefault();
+              ProductData.deleteProduct(item.id).then(() => {
+                document.querySelector('#menuProduk').click();
+              });
+            });
+          });
           hideLoadingIcon();
         }, 1000);
       });
