@@ -2,7 +2,7 @@
 /* eslint-disable object-shorthand */
 import {
   get,
-  getDatabase, ref, set, update,
+  getDatabase, ref, set, update, remove, child,
 } from 'firebase/database';
 import {
   getStorage, uploadBytes, ref as refs, getDownloadURL,
@@ -27,6 +27,27 @@ class UserData {
       return userData.val();
     } catch (error) {
       console.log(error.message);
+      return null;
+    }
+  }
+
+  static async getAllUsers() {
+    const db = getDatabase();
+
+    try {
+      const userData = await get(ref(db, 'users/'));
+      return userData.val();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async deleteUsers(id) {
+    const dbRef = ref(getDatabase());
+    try {
+      remove(child(dbRef, `users/${id}`));
+    } catch (e) {
+      console.log(e.message);
     }
   }
 
