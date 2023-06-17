@@ -10,8 +10,16 @@ import App from './app';
 // eslint-disable-next-line quotes
 import "./components/hati-footer";
 import "./components/hati-nav";
+import UserData from './utils/user-data';
+import UserInfo from './utils/user-info';
 
 initializeApp(firebaseConfig);
+
+if (UserInfo.getUserInfo().uid) {
+  UserData.getUserData(UserInfo.getUserInfo().uid).then((data) => {
+    document.querySelector('#profile-button').setAttribute('src', data.photo);
+  });
+}
 
 const app = new App({
   content: document.querySelector('main'),

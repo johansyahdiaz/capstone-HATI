@@ -1,5 +1,6 @@
 /* eslint-disable no-inner-declarations */
 /* eslint-disable consistent-return */
+import NewsData from '../utils/news-data';
 import ProductData from '../utils/product-data';
 import UserData from '../utils/user-data';
 import UserInfo from '../utils/user-info';
@@ -71,6 +72,7 @@ const AdminPage = {
         }
 
         .product-list {
+          margin-top: 15px;
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           grid-gap: 15px;
@@ -149,6 +151,102 @@ const AdminPage = {
           font-size: 48px;
           color: #ffffff;
         }
+
+        #add-news{
+          width: 100%;
+          font-size: 25pt;
+        }
+        #addNewsForm div img{
+          border-radius: 15px;
+          height: 200px;
+          cursor: pointer;
+          object-fit: cover;
+          border: 2px solid #1B9C85;
+        }
+        #addNewsForm{
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+        
+        }
+        #addNewsForm input{
+          border-radius: 10px;
+          padding: 10px;
+          width: 100%;
+        }
+        
+        #addNewsForm textarea{
+          border-radius: 10px;
+          padding: 10px;
+          width: 100%;
+        }
+        
+        #addNewsForm button{
+          border-radius: 27px;
+          padding: 10px;
+          border-style: none;
+          border: 2px solid #1B9C85;
+          background-color: #1B9C85;
+          width: 40%;
+          color: white;
+          transition: 0.3s;
+        }
+        #addNewsForm button:hover{
+          border-style: none;
+          background-color: white;
+          border: 2px solid #1B9C85;
+          width: 40%;
+          color: #1B9C85;
+        }
+
+        #editNewsForm div img{
+          border-radius: 15px;
+          height: 200px;
+          cursor: pointer;
+          object-fit: cover;
+          border: 2px solid #1B9C85;
+        }
+        #editNewsForm{
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+        
+        }
+        #editNewsForm input{
+          border-radius: 10px;
+          padding: 10px;
+          width: 100%;
+        }
+        
+        #editNewsForm textarea{
+          border-radius: 10px;
+          padding: 10px;
+          width: 100%;
+        }
+        
+        #editNewsForm button{
+          border-radius: 27px;
+          padding: 10px;
+          border-style: none;
+          border: 2px solid #1B9C85;
+          background-color: #1B9C85;
+          width: 40%;
+          color: white;
+          transition: 0.3s;
+        }
+        #editNewsForm button:hover{
+          border-style: none;
+          background-color: white;
+          border: 2px solid #1B9C85;
+          width: 40%;
+          color: #1B9C85;
+        }
       </style>
       <div class="admin-page">
         <div class="navbar-admin">
@@ -193,7 +291,7 @@ const AdminPage = {
       // eslint-disable-next-line no-undef
       menuBerita.addEventListener('click', () => {
         showLoadingIcon();
-        setTimeout(() => {
+        setTimeout(async () => {
         // Menghapus elemen HTML di luar elemen inner
           const parentElement = contentContainer.parentNode;
           while (parentElement.firstChild !== contentContainer) {
@@ -201,8 +299,140 @@ const AdminPage = {
           }
           contentContainer.innerHTML = `
           <h2>Berita</h2>
-          <p>Ini adalah halaman berita.</p>
+          <button id="add-news">Tambah Berita +</button>
+          <div class="product-list" id="product-list-admin">
+            
+          </div>
         `;
+          const store = await NewsData.getNews();
+          const productList = document.querySelector('#product-list-admin');
+          Object.values(store).reverse().forEach((item) => {
+            const productItem = document.createElement('div');
+            console.log(item);
+            productItem.innerHTML = `
+            <div class="product-item">
+              <img class="product-image" src="${item.image}">
+              <p class="product-name">${item.title}</p>
+              <div class="product-actions">
+                <button class="edit" style="text-decoration: none; cursor: pointer;" id="edit-${item.id}">Edit</button>
+                <button class="delete" id="remove-${item.id}">Delete</button>
+              </div>
+            </div>
+            `;
+            productList.appendChild(productItem);
+            document.querySelector(`#remove-${item.id}`).addEventListener('click', (event) => {
+              event.preventDefault();
+              if (item.id) {
+                NewsData.deleteNews(item.id).then(() => {
+                  document.querySelector('#menuBerita').click();
+                });
+              }
+            });
+            document.querySelector(`#edit-${item.id}`).addEventListener('click', (event) => {
+              event.preventDefault();
+              contentContainer.innerHTML = `
+              <h2>Edit Berita</h2>
+              <form name="editNewsForm" id="editNewsForm" method="POST" enctype="multipart/form-data">
+                <div>
+                <img id="news-photo" src="${item.image}">
+                </div>
+                <p>Click to edit news image. </p>
+                <input placeholder="Judul Berita" name="newsTitle" value="${item.title}" required>
+                <textarea placeholder="Isi Berita" name="newsBody" id="newsBody" required>${item.body}</textarea>
+                <input type="file" name="newsPhotoInput" id="newsPhotoInput"style="display:none;">
+                <button type="submit">Update Berita</button>
+              </form>
+            `;
+              const newsImg = document.querySelector('#news-photo');
+              const newsPhotoInput = document.querySelector('#newsPhotoInput');
+
+              newsImg.addEventListener('click', () => {
+                newsPhotoInput.click();
+              });
+              newsPhotoInput.addEventListener('change', async () => {
+                const file = await newsPhotoInput.files[0];
+                const reader = new FileReader();
+                reader.onload = async () => {
+                  newsImg.src = reader.result;
+                };
+                if (file) reader.readAsDataURL(file);
+              }, false);
+
+              const news = {
+                id: item.id,
+                title: '',
+                body: '',
+              };
+
+              const editNewsForm = document.querySelector('#editNewsForm');
+              editNewsForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                news.title = document.forms.editNewsForm.newsTitle.value;
+                news.body = document.forms.editNewsForm.newsBody.value;
+                const image = newsPhotoInput.files[0];
+
+                try {
+                  NewsData.updateNews(news, image);
+                } catch (error) {
+                  console.log(error.message);
+                } finally {
+                // eslint-disable-next-line no-alert
+                  alert('Succesfully Updated News.');
+                  document.querySelector('#menuBerita').click();
+                }
+              });
+            });
+          });
+          document.querySelector('#add-news').addEventListener('click', () => {
+            contentContainer.innerHTML = `
+              <h2>Tambah Berita</h2>
+              <form name="addNewsForm" id="addNewsForm" method="POST" enctype="multipart/form-data">
+                <div>
+                <img id="news-photo" src="./images/placeholder.webp">
+                </div>
+                <p>Click to add news image. </p>
+                <input placeholder="Judul Berita" name="newsTitle" required>
+                <textarea placeholder="Isi Berita" name="newsBody" id="newsBody" required></textarea>
+                <input type="file" name="newsPhotoInput" id="newsPhotoInput"style="display:none;" required>
+                <button type="submit">Tambah Berita</button>
+              </form>
+            `;
+            const newsImg = document.querySelector('#news-photo');
+            const newsPhotoInput = document.querySelector('#newsPhotoInput');
+
+            newsImg.addEventListener('click', () => {
+              newsPhotoInput.click();
+            });
+            newsPhotoInput.addEventListener('change', async () => {
+              const file = await newsPhotoInput.files[0];
+              const reader = new FileReader();
+              reader.onload = async () => {
+                newsImg.src = reader.result;
+              };
+              if (file) reader.readAsDataURL(file);
+            }, false);
+            const news = {
+              title: '',
+              body: '',
+            };
+            const addNewsForm = document.querySelector('#addNewsForm');
+            addNewsForm.addEventListener('submit', (event) => {
+              event.preventDefault();
+              news.title = document.forms.addNewsForm.newsTitle.value;
+              news.body = document.forms.addNewsForm.newsBody.value;
+              const image = newsPhotoInput.files[0];
+
+              try {
+                NewsData.addNews(news, image);
+              } catch (e) {
+                console.log(e.message);
+              } finally {
+                // eslint-disable-next-line no-alert
+                alert('Succesfully Uploaded News.');
+                document.querySelector('#menuBerita').click();
+              }
+            });
+          });
           hideLoadingIcon();
         }, 1000);
       });
