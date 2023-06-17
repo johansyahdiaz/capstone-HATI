@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import UrlParser from '../routes/url-parser';
 import ProductData from '../utils/product-data';
 import UserData from '../utils/user-data';
@@ -83,7 +84,7 @@ const DetailProductPage = {
         event.preventDefault();
         location.href = `#/detail-product/${item.id}`;
       });
-      if (item.uid === product.uid && item.id !== product.id) {
+      if (item.uid === product.uid && item.id !== product.id && moreProduct.childElementCount <= 3) {
         moreProduct.appendChild(productItem);
       }
     });

@@ -8,6 +8,7 @@ import {
   getStorage, uploadBytes, ref as refs, getDownloadURL,
 } from 'firebase/storage';
 import ProductData from './product-data';
+import UserInfo from './user-info';
 
 class UserData {
   static async createUserData(username, email, uid) {
@@ -46,7 +47,15 @@ class UserData {
   static async deleteUsers(id) {
     const dbRef = ref(getDatabase());
     try {
-      remove(child(dbRef, `users/${id}`));
+      remove(child(dbRef, `users/${id}`)).then(() => {
+        ProductData.getProduct().then((products) => {
+          Object.values(products).forEach((item) => {
+            if (item.uid === id) {
+              ProductData.deleteProduct(item.id);
+            }
+          });
+        });
+      });
     } catch (e) {
       console.log(e.message);
     }
@@ -62,6 +71,7 @@ class UserData {
       socmed: userData.socmed ? userData.socmed : '',
       desc: userData.desc ? userData.desc : '',
     }).then(() => {
+      UserInfo.setUserInfo(userData.email, userData.uid, userData.name);
       ProductData.getProduct().then((products) => {
         Object.values(products).forEach((item) => {
           const product = {
@@ -86,14 +96,15 @@ class UserData {
     const storage = getStorage();
     try {
       const storageRef = refs(storage, `users/${uid}/profileImage/${uid}`);
-      uploadBytes(storageRef, photo);
+      uploadBytes(storageRef, photo).then(() => {
+        getDownloadURL(refs(storage, `users/${uid}/profileImage/${uid}`)).then((url) => {
+          update(ref(db, `users/${uid}`), {
+            photo: url,
+          });
+        });
+      });
     } catch (e) {
       console.log(e.message);
-    } finally {
-      const url = await getDownloadURL(refs(storage, `users/${uid}/profileImage/${uid}`));
-      update(ref(db, `users/${uid}`), {
-        photo: url,
-      });
     }
   }
 }
