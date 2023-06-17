@@ -29,15 +29,15 @@ const StorePage = {
     const moreProduct = document.querySelector('#more-product');
 
     productDetailContainer.innerHTML = `
-    <img src = "${store.photo ? store.photo : './images/profile.png'}">
+    <img src = "${store.photo ? store.photo : './images/profilePic.png'}">
     <div>
-      <h3>${store.name}</h3>
+      <h3>${store.name} <i class="fa-solid fa-circle-check fa-sm"></i></h3>
       <p>${store.desc ? store.desc : 'This store has no description.'}</p>
     </div>
     <div class="store-contact">
         <h4>Contact</h4>
-        <p>${store.phone ? store.phone : 'This store has no whatsapp.'}</p>
-        <p>${store.socmed ? store.socmed : 'This store has no instagram.'}</p>
+        <p><img src="./images/wa.png" style="max-width:25px;border:none;border-radius:0;"> ${store.phone ? store.phone : 'This store has no whatsapp.'}</p>
+        <p><img src="./images/ig.png" style="max-width:25px;border:none;border-radius:0;"> ${store.socmed ? store.socmed : 'This store has no instagram.'}</p>
     </div>
     `;
 
