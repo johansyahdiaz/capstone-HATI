@@ -10,6 +10,7 @@ import AddProductPage from '../pages/add-product';
 import EditProductPage from '../pages/edit-product-page';
 import DetailProductPage from '../pages/detail-product';
 import StorePage from '../pages/store-page';
+import NewsDetailPage from '../pages/detail-news';
 
 const routes = {
   '/': HomePage,
@@ -24,6 +25,7 @@ const routes = {
   '/edit-product/:id': EditProductPage,
   '/detail-product/:id': DetailProductPage,
   '/store/:id': StorePage,
+  '/news/:id': NewsDetailPage,
 };
 
 export default routes;

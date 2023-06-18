@@ -7,9 +7,9 @@ const MarketplacePage = {
     if (UserInfo.getUserInfo().uid) {
       return `
     <h2 class="title-page-market"> Marketplace </h2>
-    <form class="search-form row g-3 form-search-product">
+    <form class="search-form row g-3 form-search-product" id="searchForm" name="searchForm">
     <div class="col-sm-7">
-      <input type="text" class="form-control search-input search-product" placeholder="Search">
+      <input type="text" class="form-control search-input search-product" placeholder="Search" name="searchInput">
       </div>
       <div class="col-sm">
       <button type="submit" class="btn btn-primary search-product-btn">Search</button>
@@ -28,6 +28,38 @@ const MarketplacePage = {
       const productList = document.querySelector('#Card-Product');
 
       const productItem = await ProductData.getProduct();
+
+      const searchForm = document.querySelector('#searchForm');
+
+      searchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        productList.innerHTML = '';
+        const searchInput = document.forms.searchForm.searchInput.value;
+
+        Object.values(productItem).reverse().forEach((item) => {
+          const productCard = document.createElement('div');
+          productCard.innerHTML = `
+        <div class="card">
+          <img src="${item.image}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">${Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price)}</p>
+            <h5 class="card-title">${item.name}</h5>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">${item.seller} <i class="fa-solid fa-circle-check fa-lg"></i></small>
+          </div>
+        </div>
+        `;
+          productCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            location.href = `#/detail-product/${item.id}`;
+          });
+          if (item.name.toLowerCase().includes(searchInput.toLowerCase())) {
+            productList.appendChild(productCard);
+            productCard.classList.add('col');
+          }
+        });
+      });
 
       Object.values(productItem).reverse().forEach((item) => {
         const productCard = document.createElement('div');
