@@ -10,6 +10,7 @@ import App from './app';
 // eslint-disable-next-line quotes
 import "./components/hati-footer";
 import "./components/hati-nav";
+import "./components/hati-carousel";
 import UserData from './utils/user-data';
 import UserInfo from './utils/user-info';
 
