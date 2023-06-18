@@ -354,7 +354,7 @@ main {
 }
 
 .product-item img{
-  max-width: 250px;
+  width: 250px;
   aspect-ratio: 4/3;
   object-fit: cover;
 }
@@ -519,6 +519,45 @@ main {
   gap: 20px;
 }
 
+.news-detail-article{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.news-detail-container{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background-color: #FAFFEF;
+  border-radius: 15px;
+  border: 2px solid black;
+  padding: 5%;
+}
+
+.news-detail-container h2{
+  width: 100%;
+  font-weight: 500;
+  text-align: center;
+  
+}
+
+.news-detail-container img{
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 15px;
+  border: 2px solid #1B9C85;
+}
+
+.news-detail-container p{
+  text-align: left;
+}
+
 /* card product */
 .title-page-market{
   text-align: center;
@@ -526,6 +565,7 @@ main {
 
 .listProduct{
   margin: 0% 5%;
+  width: 90%;
 }
 
 .card{
@@ -544,6 +584,7 @@ main {
   display: flex;
   align-items: center;
   margin-left: 15%;
+  margin-top: 30px;
 }
 .search-product{
   width: 100%;
@@ -635,6 +676,7 @@ ul  {
 /* Home */
 #news-container {
   padding: 50px 100px;
+  width: 90%;
 }
 
 .news-item {
@@ -645,9 +687,11 @@ ul  {
 }
 
 .news-picture {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
   margin-bottom: 8px;
+  border-radius: 15px;
 }
 
 .news-button {

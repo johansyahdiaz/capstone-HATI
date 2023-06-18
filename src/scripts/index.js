@@ -18,7 +18,9 @@ initializeApp(firebaseConfig);
 
 if (UserInfo.getUserInfo().uid) {
   UserData.getUserData(UserInfo.getUserInfo().uid).then((data) => {
-    document.querySelector('#profile-button').setAttribute('src', data.photo);
+    if (data.photo) {
+      document.querySelector('#profile-button').setAttribute('src', data.photo);
+    }
   });
 }
 

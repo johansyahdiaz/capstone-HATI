@@ -306,10 +306,11 @@ const AdminPage = {
         `;
           const store = await NewsData.getNews();
           const productList = document.querySelector('#product-list-admin');
-          Object.values(store).reverse().forEach((item) => {
-            const productItem = document.createElement('div');
-            console.log(item);
-            productItem.innerHTML = `
+          if (store) {
+            Object.values(store).reverse().forEach((item) => {
+              const productItem = document.createElement('div');
+              console.log(item);
+              productItem.innerHTML = `
             <div class="product-item">
               <img class="product-image" src="${item.image}">
               <p class="product-name">${item.title}</p>
@@ -319,18 +320,18 @@ const AdminPage = {
               </div>
             </div>
             `;
-            productList.appendChild(productItem);
-            document.querySelector(`#remove-${item.id}`).addEventListener('click', (event) => {
-              event.preventDefault();
-              if (item.id) {
-                NewsData.deleteNews(item.id).then(() => {
-                  document.querySelector('#menuBerita').click();
-                });
-              }
-            });
-            document.querySelector(`#edit-${item.id}`).addEventListener('click', (event) => {
-              event.preventDefault();
-              contentContainer.innerHTML = `
+              productList.appendChild(productItem);
+              document.querySelector(`#remove-${item.id}`).addEventListener('click', (event) => {
+                event.preventDefault();
+                if (item.id) {
+                  NewsData.deleteNews(item.id).then(() => {
+                    document.querySelector('#menuBerita').click();
+                  });
+                }
+              });
+              document.querySelector(`#edit-${item.id}`).addEventListener('click', (event) => {
+                event.preventDefault();
+                contentContainer.innerHTML = `
               <h2>Edit Berita</h2>
               <form name="editNewsForm" id="editNewsForm" method="POST" enctype="multipart/form-data">
                 <div>
@@ -343,46 +344,47 @@ const AdminPage = {
                 <button type="submit">Update Berita</button>
               </form>
             `;
-              const newsImg = document.querySelector('#news-photo');
-              const newsPhotoInput = document.querySelector('#newsPhotoInput');
+                const newsImg = document.querySelector('#news-photo');
+                const newsPhotoInput = document.querySelector('#newsPhotoInput');
 
-              newsImg.addEventListener('click', () => {
-                newsPhotoInput.click();
-              });
-              newsPhotoInput.addEventListener('change', async () => {
-                const file = await newsPhotoInput.files[0];
-                const reader = new FileReader();
-                reader.onload = async () => {
-                  newsImg.src = reader.result;
+                newsImg.addEventListener('click', () => {
+                  newsPhotoInput.click();
+                });
+                newsPhotoInput.addEventListener('change', async () => {
+                  const file = await newsPhotoInput.files[0];
+                  const reader = new FileReader();
+                  reader.onload = async () => {
+                    newsImg.src = reader.result;
+                  };
+                  if (file) reader.readAsDataURL(file);
+                }, false);
+
+                const news = {
+                  id: item.id,
+                  title: '',
+                  body: '',
                 };
-                if (file) reader.readAsDataURL(file);
-              }, false);
 
-              const news = {
-                id: item.id,
-                title: '',
-                body: '',
-              };
+                const editNewsForm = document.querySelector('#editNewsForm');
+                editNewsForm.addEventListener('submit', (e) => {
+                  e.preventDefault();
+                  news.title = document.forms.editNewsForm.newsTitle.value;
+                  news.body = document.forms.editNewsForm.newsBody.value;
+                  const image = newsPhotoInput.files[0];
 
-              const editNewsForm = document.querySelector('#editNewsForm');
-              editNewsForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                news.title = document.forms.editNewsForm.newsTitle.value;
-                news.body = document.forms.editNewsForm.newsBody.value;
-                const image = newsPhotoInput.files[0];
-
-                try {
-                  NewsData.updateNews(news, image);
-                } catch (error) {
-                  console.log(error.message);
-                } finally {
-                // eslint-disable-next-line no-alert
-                  alert('Succesfully Updated News.');
-                  document.querySelector('#menuBerita').click();
-                }
+                  try {
+                    NewsData.updateNews(news, image);
+                  } catch (error) {
+                    console.log(error.message);
+                  } finally {
+                    // eslint-disable-next-line no-alert
+                    alert('Succesfully Updated News.');
+                    document.querySelector('#menuBerita').click();
+                  }
+                });
               });
             });
-          });
+          }
           document.querySelector('#add-news').addEventListener('click', () => {
             contentContainer.innerHTML = `
               <h2>Tambah Berita</h2>
