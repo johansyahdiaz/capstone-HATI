@@ -7,6 +7,14 @@ const MarketplacePage = {
     if (UserInfo.getUserInfo().uid) {
       return `
     <h2 class="title-page-market"> Marketplace </h2>
+    <form class="search-form row g-3 form-search-product">
+    <div class="col-sm-7">
+      <input type="text" class="form-control search-input search-product" placeholder="Search">
+      </div>
+      <div class="col-sm">
+      <button type="submit" class="btn btn-primary search-product-btn">Search</button>
+      </div>
+    </form>
     <div class="row row-cols-1 row-cols-md-4 g-4 listProduct" id="Card-Product">
     
     </div>

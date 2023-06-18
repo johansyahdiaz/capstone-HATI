@@ -538,6 +538,26 @@ main {
 }
 /* end Card Produt */
 
+/* form search product */
+.form-search-product{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  margin-left: 15%;
+}
+.search-product{
+  width: 100%;
+  flex: 1;
+  margin-right: 10px;
+  min-width: 100px;
+}
+
+.search-product-btn{
+  width: 20%;
+  min-width: 80px;
+}
+/* end form search product */
+
 footer {
   text-align: center;
   color: white;
@@ -698,4 +718,7 @@ ul  {
   color: white;
 }
 
-/* Responsiv */
+/* Responsiv start */
+
+
+/* responsive end*/
