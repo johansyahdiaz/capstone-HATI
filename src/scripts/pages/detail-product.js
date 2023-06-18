@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import UrlParser from '../routes/url-parser';
 import ProductData from '../utils/product-data';
 import UserData from '../utils/user-data';
@@ -32,6 +33,7 @@ const DetailProductPage = {
 
     const product = await ProductData.getProductById(url.id);
     const productAll = await ProductData.getProduct();
+    console.log(typeof productAll);
     const store = await UserData.getUserData(product.uid);
 
     const productDetailContainer = document.querySelector('#product-detail-container');
@@ -43,13 +45,19 @@ const DetailProductPage = {
     <div>
       <h3>${product.name}</h3>
       <p>${Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.price)}</p>
-      <button>Pesan Sekarang</button>
+      <button id="buy-now">Hubungi Untuk Memesan</button>
       <p>${product.desc}</p>
     </div>
     `;
 
+    const buyNow = document.querySelector('#buy-now');
+    buyNow.addEventListener('click', (event) => {
+      event.preventDefault();
+      location.href = `https://wa.me/${store.phone}`;
+    });
+
     storeDetail.innerHTML = `
-        <img src="${store.photo}}">
+        <img src="${store.photo ? store.photo : './images/profile.png'}">
         <small class="text-muted">${store.name} 
         <i class="fa-solid fa-circle-check fa-lg"></i></small>
     `;
@@ -58,7 +66,7 @@ const DetailProductPage = {
       location.href = `#/store/${product.uid}`;
     });
 
-    Object.values(productAll).slice(-6).reverse().forEach((item) => {
+    Object.values(productAll).reverse().forEach((item) => {
       const productItem = document.createElement('div');
       productItem.innerHTML = `
           <div class="card">
@@ -76,7 +84,7 @@ const DetailProductPage = {
         event.preventDefault();
         location.href = `#/detail-product/${item.id}`;
       });
-      if (item.uid === product.uid && item.id !== product.id) {
+      if (item.uid === product.uid && item.id !== product.id && moreProduct.childElementCount <= 3) {
         moreProduct.appendChild(productItem);
       }
     });

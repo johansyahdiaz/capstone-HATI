@@ -30,7 +30,7 @@ class hatiNav extends HTMLElement {
                 </li>
               </ul>
               <form class="d-flex" role="search">
-                <a href="#/profile" class="btn btn-outline-dark btn-login" type="submit" id="btn-login"><img id="profile-button" src="./images/profile.png"></a>
+                <a href="#/profile" class="btn btn-outline-dark btn-login" type="submit" id="btn-login" style="padding:0;"><img id="profile-button" src="./images/profile.png"></a>
               </form>
             </div>
           </div>

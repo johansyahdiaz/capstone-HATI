@@ -8,12 +8,28 @@ import UserData from './user-data';
 class Auth {
   static async googleSignIn(auth, provider) {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
         const { user } = result;
 
-        UserData.createUserData(user.displayName, user.email, user.uid);
+        const userExist = await UserData.getUserData(user.uid);
+        console.log(userExist);
+
+        if (userExist) {
+          const userData = {
+            name: user.displayName,
+            email: user.email,
+            uid: user.uid,
+            phone: userExist.phone ? userExist.phone : '',
+            photo: userExist.photo ? userExist.photo : '',
+            socmed: userExist.socmed ? userExist.socmed : '',
+            desc: userExist.desc ? userExist.desc : '',
+          };
+          UserData.updateUserData(userData, user.uid);
+        } else {
+          UserData.createUserData(user.displayName, user.email, user.uid);
+        }
 
         UserInfo.setUserInfo(user.email, user.uid, user.displayName);
 
