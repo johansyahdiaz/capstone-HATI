@@ -2,6 +2,7 @@ const NewsPage = {
   /* html */
   render() {
     return `
+    <hati-carousel></hati-carousel>
     <div class="search-news">
       <input type="text" id="search-input" class="search-news-input" placeholder="Search News">
       <button id="search-button" class="search-news-button">Search</button>
