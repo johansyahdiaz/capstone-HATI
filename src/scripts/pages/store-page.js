@@ -31,7 +31,7 @@ const StorePage = {
     productDetailContainer.innerHTML = `
     <img src = "${store.photo ? store.photo : './images/profilePic.png'}">
     <div>
-      <h3>${store.name} <i class="fa-solid fa-circle-check fa-sm"></i></h3>
+      <h3>${store.name} ${store.isVerified === 'verified' ? '<i class="fa-solid fa-circle-check fa-sm"></i>' : ''}</h3>
       <p>${store.desc ? store.desc : 'This store has no description.'}</p>
     </div>
     <div class="store-contact">
@@ -51,7 +51,7 @@ const StorePage = {
             <h5 class="card-title">${item.name}</h5>
             </div>
             <div class="card-footer">
-            <small class="text-muted">${item.seller} <i class="fa-solid fa-circle-check fa-lg"></i></small>
+            <small class="text-muted">${item.seller} ${store.isVerified === 'verified' ? '<i class="fa-solid fa-circle-check fa-lg"></i>' : ''}</small>
           </div>
         `;
       productItem.setAttribute('class', 'product-item');
