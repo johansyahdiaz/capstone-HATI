@@ -1,6 +1,8 @@
+/* eslint-disable max-len */
 import ProductData from '../utils/product-data';
 import UserData from '../utils/user-data';
 import UserInfo from '../utils/user-info';
+import VerificationData from '../utils/verification-data';
 
 const ProfilePage = {
   async render() {
@@ -16,6 +18,8 @@ const ProfilePage = {
           <input placeholder="Social Media (Link)" name="userSocmed" id="userSocmed">
           <textarea placeholder="Description" name="userDesc" id="userDesc"></textarea>
           <input type="file" name="profileImage" id="profileImgInput"style="display:none;">
+          <label id="verificationLabel">Submit Verification (PDF only)</label>
+          <input type="file" name="storeVerification" id="storeVerification" accept="application/pdf">
           <button type="submit" >Save Changes</button>
           <button id="logout-btn">Logout</button>
       </form>
@@ -42,6 +46,8 @@ const ProfilePage = {
     const userPhone = document.querySelector('#userPhone');
     const userSocmed = document.querySelector('#userSocmed');
     const userDesc = document.querySelector('#userDesc');
+    const verificationPdf = document.querySelector('#storeVerification');
+    const verificationLabel = document.querySelector('#verificationLabel');
 
     logout.addEventListener('click', (event) => {
       event.preventDefault();
@@ -65,11 +71,20 @@ const ProfilePage = {
 
     try {
       const userData = await UserData.getUserData(UserInfo.getUserInfo().uid);
+      console.log(userData.isVerified);
       userName.setAttribute('value', userData.name);
       if (userData.phone) userPhone.setAttribute('value', userData.phone);
       if (userData.socmed) userSocmed.setAttribute('value', userData.socmed);
       if (userData.desc) userDesc.innerText = userData.desc;
       if (userData.photo) profileImg.setAttribute('src', userData.photo);
+      if (userData.isVerified === 'pending') {
+        verificationPdf.setAttribute('type', 'hidden');
+        verificationLabel.innerText = 'Verification Pending';
+      }
+      if (userData.isVerified === 'verified') {
+        verificationPdf.setAttribute('type', 'hidden');
+        verificationLabel.innerText = 'You Are Verified!';
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -78,6 +93,9 @@ const ProfilePage = {
       event.preventDefault();
       const userData = {
         name: '', phone: '', socmed: '', desc: '', seller: '', email: UserInfo.getUserInfo().email, uid: UserInfo.getUserInfo().uid,
+      };
+      const verification = {
+        uid: UserInfo.getUserInfo().uid,
       };
 
       userData.name = document.forms.profileForm.userName.value;
@@ -89,6 +107,7 @@ const ProfilePage = {
       try {
         UserData.updateUserData(userData, UserInfo.getUserInfo().uid);
         if (imgFile) UserData.updateUserProfilePhoto(imgFile, UserInfo.getUserInfo().uid);
+        if (verificationPdf) VerificationData.submitVerification(verification, verificationPdf.files[0]);
       } catch (e) {
         console.log(e.message);
       } finally {

@@ -4,6 +4,7 @@ import NewsData from '../utils/news-data';
 import ProductData from '../utils/product-data';
 import UserData from '../utils/user-data';
 import UserInfo from '../utils/user-info';
+import VerificationData from '../utils/verification-data';
 
 const AdminPage = {
   async render() {
@@ -76,6 +77,28 @@ const AdminPage = {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           grid-gap: 15px;
+        }
+
+        .verification-list{
+          margin-top: 15px;
+          display: grid;
+          grid-template-columns: repeat(1, 1fr);
+          grid-gap: 15px;
+        }
+
+        .store-name{
+          margin: 0;
+        }
+        #verifyStore{
+          padding: 10px;
+        }
+        .verification-item {
+          background-color: #ffffff;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .product-item {
@@ -260,7 +283,26 @@ const AdminPage = {
         </div>
         <div class="content">
           <h2 class="content-title">Halaman Admin</h2>
-          <div id="content-container"></div>
+          <div id="content-container">
+            <div class="product-list" id="product-list-admin">
+                <div class="product-item">
+                  <p class="product-name">Berita</p>
+                  <p id="berita-count" style="font-size: 50pt;">0</p>
+                </div>
+                <div class="product-item">
+                  <p class="product-name">Verifikasi</p>
+                  <p id="verifikasi-count" style="font-size: 50pt;">0</p>
+                </div>
+                <div class="product-item">
+                  <p class="product-name">Toko</p>
+                  <p id="toko-count" style="font-size: 50pt;">0</p>
+                </div>
+                <div class="product-item">
+                  <p class="product-name">Produk</p>
+                  <p id="produk-count" style="font-size: 50pt;">0</p>
+                </div>
+            </div>
+          </div>
           <div class="loading-container" id="loading-container">
             <i class="loading-icon fas fa-spinner fa-spin"></i>
           </div>
@@ -277,6 +319,38 @@ const AdminPage = {
     const user = await UserData.getUserData(UserInfo.getUserInfo().uid);
 
     if (user.isAdmin) {
+      NewsData.getNews().then((news) => {
+        if (news) {
+          document.querySelector('#berita-count').innerText = Object.keys(news).length;
+        } else {
+          document.querySelector('#berita-count').innerText = 0;
+        }
+      });
+
+      VerificationData.getAllVerification().then((verification) => {
+        if (verification) {
+          document.querySelector('#verifikasi-count').innerText = Object.keys(verification).length;
+        } else {
+          document.querySelector('#verifikasi-count').innerText = 0;
+        }
+      });
+
+      UserData.getAllUsers().then((users) => {
+        if (users) {
+          document.querySelector('#toko-count').innerText = Object.keys(users).length;
+        } else {
+          document.querySelector('#toko-count').innerText = 0;
+        }
+      });
+
+      ProductData.getProduct().then((product) => {
+        if (product) {
+          document.querySelector('#produk-count').innerText = Object.keys(product).length;
+        } else {
+          document.querySelector('#produk-count').innerText = 0;
+        }
+      });
+
       const contentContainer = document.getElementById('content-container');
       const loadingContainer = document.getElementById('loading-container');
 
@@ -292,7 +366,7 @@ const AdminPage = {
       menuBerita.addEventListener('click', () => {
         showLoadingIcon();
         setTimeout(async () => {
-        // Menghapus elemen HTML di luar elemen inner
+          // Menghapus elemen HTML di luar elemen inner
           const parentElement = contentContainer.parentNode;
           while (parentElement.firstChild !== contentContainer) {
             parentElement.removeChild(parentElement.firstChild);
@@ -309,7 +383,6 @@ const AdminPage = {
           if (store) {
             Object.values(store).reverse().forEach((item) => {
               const productItem = document.createElement('div');
-              console.log(item);
               productItem.innerHTML = `
             <div class="product-item">
               <img class="product-image" src="${item.image}">
@@ -343,10 +416,39 @@ const AdminPage = {
                 <input type="file" name="newsPhotoInput" id="newsPhotoInput"style="display:none;">
                 <button type="submit">Update Berita</button>
               </form>
+              <div class="verification-list" id="verification-list">
+            
+              </div>
             `;
+                const verificationList = document.querySelector('#verification-list');
                 const newsImg = document.querySelector('#news-photo');
                 const newsPhotoInput = document.querySelector('#newsPhotoInput');
-
+                if (item.comments) {
+                  Object.values(item.comments).reverse().forEach((comment) => {
+                    const verificationItem = document.createElement('div');
+                    verificationItem.innerHTML = `
+                    <div class="verification-item">
+                      <div>
+                        <p class="store-name">${comment.name}</p>
+                        <p class="store-name">${comment.comment}</p>
+                      </div>
+                      <div class="product-actions">
+                        <button class="delete" id="delete-${comment.id}" >Delete</button>
+                      </div>
+                    </div>
+                    `;
+                    verificationList.appendChild(verificationItem);
+                    document.querySelector(`#delete-${comment.id}`).addEventListener('click', (e) => {
+                      e.preventDefault();
+                      console.log(item.id, comment.id);
+                      if (item.id) {
+                        NewsData.deleteComment(item.id, comment.id).then(() => {
+                          document.querySelector('#menuBerita').click();
+                        });
+                      }
+                    });
+                  });
+                }
                 newsImg.addEventListener('click', () => {
                   newsPhotoInput.click();
                 });
@@ -399,9 +501,9 @@ const AdminPage = {
                 <button type="submit">Tambah Berita</button>
               </form>
             `;
+
             const newsImg = document.querySelector('#news-photo');
             const newsPhotoInput = document.querySelector('#newsPhotoInput');
-
             newsImg.addEventListener('click', () => {
               newsPhotoInput.click();
             });
@@ -442,16 +544,63 @@ const AdminPage = {
       // eslint-disable-next-line no-undef
       menuVerifikasi.addEventListener('click', () => {
         showLoadingIcon();
-        setTimeout(() => {
-        // Menghapus elemen HTML di luar elemen inner
+        setTimeout(async () => {
+          // Menghapus elemen HTML di luar elemen inner
           const parentElement = contentContainer.parentNode;
           while (parentElement.firstChild !== contentContainer) {
             parentElement.removeChild(parentElement.firstChild);
           }
           contentContainer.innerHTML = `
           <h2>Verifikasi</h2>
-          <p>Ini adalah halaman verifikasi.</p>
+          <div class="verification-list" id="verification-list">
+            
+          </div>
         `;
+          const verification = await VerificationData.getAllVerification();
+          const verificationList = document.querySelector('#verification-list');
+          if (verification) {
+            Object.values(verification).reverse().forEach((item) => {
+              UserData.getUserData(item.uid).then((userData) => {
+                const verificationItem = document.createElement('div');
+                verificationItem.innerHTML = `
+              <div class="verification-item">
+                <p class="store-name">${userData.name}</p>
+                <div class="product-actions">
+                  <a href="${item.doc}">Download Document</a>
+                  <button class="edit" style="text-decoration: none; cursor: pointer;" id="view-${item.id}">View Store</button>
+                  <form name="verifyStore" id="verifyStore" method="POST" enctype="multipart/form-data">
+                      <select name="verifyStatus">
+                        <option value="rejected">Tolak Verifikasi</option>
+                        <option value="verified">Terima Verifikasi</option>
+                      </select>
+                      <button type="submit">Confirm</button>
+                  </form>
+                </div>
+              </div>
+              `;
+                verificationList.appendChild(verificationItem);
+                document.querySelector(`#view-${item.id}`).addEventListener('click', (event) => {
+                  event.preventDefault();
+                  if (item.id) {
+                    location.href = `#/store/${userData.uid}`;
+                  }
+                });
+                const verifyStore = document.querySelector('#verifyStore');
+                verifyStore.addEventListener('submit', (e) => {
+                  e.preventDefault();
+                  const status = document.forms.verifyStore.verifyStatus.value;
+
+                  try {
+                    VerificationData.verifyStore(status, userData.uid);
+                  } catch (error) {
+                    console.log(error.message);
+                  } finally {
+                    document.querySelector('#menuVerifikasi').click();
+                  }
+                });
+              });
+            });
+          }
           hideLoadingIcon();
         }, 1000);
       });
@@ -460,7 +609,7 @@ const AdminPage = {
       menuToko.addEventListener('click', () => {
         showLoadingIcon();
         setTimeout(async () => {
-        // Menghapus elemen HTML di luar elemen inner
+          // Menghapus elemen HTML di luar elemen inner
           const parentElement = contentContainer.parentNode;
           while (parentElement.firstChild !== contentContainer) {
             parentElement.removeChild(parentElement.firstChild);
@@ -506,7 +655,7 @@ const AdminPage = {
       menuProduk.addEventListener('click', () => {
         showLoadingIcon();
         setTimeout(async () => {
-        // Menghapus elemen HTML di luar elemen inner
+          // Menghapus elemen HTML di luar elemen inner
           const parentElement = contentContainer.parentNode;
           while (parentElement.firstChild !== contentContainer) {
             parentElement.removeChild(parentElement.firstChild);

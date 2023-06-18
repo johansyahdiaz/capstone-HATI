@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 import ProductData from '../utils/product-data';
+import UserData from '../utils/user-data';
 import UserInfo from '../utils/user-info';
 
 const MarketplacePage = {
@@ -37,50 +38,54 @@ const MarketplacePage = {
         const searchInput = document.forms.searchForm.searchInput.value;
 
         Object.values(productItem).reverse().forEach((item) => {
-          const productCard = document.createElement('div');
-          productCard.innerHTML = `
-        <div class="card">
-          <img src="${item.image}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">${Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price)}</p>
-            <h5 class="card-title">${item.name}</h5>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">${item.seller} <i class="fa-solid fa-circle-check fa-lg"></i></small>
-          </div>
-        </div>
-        `;
-          productCard.addEventListener('click', (e) => {
-            e.preventDefault();
-            location.href = `#/detail-product/${item.id}`;
+          UserData.getUserData(item.uid).then((user) => {
+            const productCard = document.createElement('div');
+            productCard.innerHTML = `
+              <div class="card">
+                <img src="${item.image}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <p class="card-text">${Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price)}</p>
+                  <h5 class="card-title">${item.name}</h5>
+                </div>
+                <div class="card-footer">
+                <small class="text-muted">${item.seller} ${user.isVerified === 'verified' ? '<i class="fa-solid fa-circle-check fa-lg"></i>' : ''}</small>
+                </div>
+              </div>
+              `;
+            productCard.addEventListener('click', (e) => {
+              e.preventDefault();
+              location.href = `#/detail-product/${item.id}`;
+            });
+            if (item.name.toLowerCase().includes(searchInput.toLowerCase())) {
+              productList.appendChild(productCard);
+              productCard.classList.add('col');
+            }
           });
-          if (item.name.toLowerCase().includes(searchInput.toLowerCase())) {
-            productList.appendChild(productCard);
-            productCard.classList.add('col');
-          }
         });
       });
 
       Object.values(productItem).reverse().forEach((item) => {
-        const productCard = document.createElement('div');
-        productCard.innerHTML = `
-      <div class="card">
-        <img src="${item.image}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">${Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price)}</p>
-          <h5 class="card-title">${item.name}</h5>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">${item.seller} <i class="fa-solid fa-circle-check fa-lg"></i></small>
-        </div>
-      </div>
-      `;
-        productCard.addEventListener('click', (event) => {
-          event.preventDefault();
-          location.href = `#/detail-product/${item.id}`;
+        UserData.getUserData(item.uid).then((user) => {
+          const productCard = document.createElement('div');
+          productCard.innerHTML = `
+            <div class="card">
+              <img src="${item.image}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">${Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price)}</p>
+                <h5 class="card-title">${item.name}</h5>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">${item.seller} ${user.isVerified === 'verified' ? '<i class="fa-solid fa-circle-check fa-lg"></i>' : ''}</small>
+              </div>
+            </div>
+            `;
+          productCard.addEventListener('click', (event) => {
+            event.preventDefault();
+            location.href = `#/detail-product/${item.id}`;
+          });
+          productList.appendChild(productCard);
+          productCard.classList.add('col');
         });
-        productList.appendChild(productCard);
-        productCard.classList.add('col');
       });
     }
   },

@@ -29,6 +29,32 @@ class NewsData {
     }
   }
 
+  static async addComment(comment, uid, newsId, name) {
+    const db = getDatabase();
+    const id = Date.now();
+
+    try {
+      update(ref(db, `news/${newsId}/comments/${id}-${uid}`), {
+        id: `${id}-${uid}`,
+        uid,
+        date: id,
+        comment,
+        name,
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  static async deleteComment(newsId, id) {
+    const dbRef = ref(getDatabase());
+    try {
+      remove(child(dbRef, `news/${newsId}/comments/${id}`));
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
   static async getNews() {
     const dbRef = ref(getDatabase());
 
