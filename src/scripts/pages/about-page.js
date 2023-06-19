@@ -83,7 +83,7 @@ const AboutPage = {
           box-shadow: 0px 0px 10px 5px rgba(0, 0, 255, 0.5), 0px 0px 10px 5px rgba(255, 0, 255, 0.5), 0px 0px 10px 5px rgba(0, 255, 0, 0.5);
         }
       }
-      
+
       .feature-text {
         flex: 1;
       }
@@ -114,7 +114,7 @@ const AboutPage = {
         list-style-type: none;
         padding-top: 5px;
         padding-bottom: 6px;
-        background-image:url(./images/background-about-dev.png);
+        background-image:url(./Images/background-about-dev.png);
         box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5), 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
       }
       
@@ -130,12 +130,24 @@ const AboutPage = {
         font-size: 0.8rem;
       }
 
+      
+      @media (max-width: 320px) {
+        .feature {
+          display: block;
+        }
+
+        .feature-text {
+          margin-top: 5px;
+        }
+      }
+
       @media (max-width: 802px) {
         .footer-developer-list li {
           display: block;
           margin-right: 0;
           margin-bottom: 10px;
         }
+      }
 
     </style>
  
@@ -145,14 +157,14 @@ const AboutPage = {
       
       <div class="features">
         <div class="feature">
-          <img class="lazyload" crossorigin="anonymous" src="./images/marketplace-icon.png" alt="Marketplace Icon" onclick="window.location.href='#/'">
+          <img class="lazyload" crossorigin="anonymous" src="./Images/marketplace-icon.png" alt="Marketplace Icon" onclick="window.location.href='#/marketplace'">
           <div class="feature-text">
             <h2 class="feature-title">Marketplace</h2>
             <p class="feature-description">Kami menyediakan platform online yang mempertumakan para petani dan pembeli. Melalui platform kami, Anda dapat menjual dan mencari produk hasil pertanian secara luas baik dalam negeri maupun luar negeri.</p>
           </div>
         </div>
         <div class="feature">
-          <img class="lazyload" crossorigin="anonymous" src="./images/news-icon.png" alt="News Icon" onclick="window.location.href='#/'">
+          <img class="lazyload" crossorigin="anonymous" src="./Images/news-icon.png" alt="News Icon" onclick="window.location.href='#/'">
           <div class="feature-text">
             <h2 class="feature-title">Berita Pertanian Terkini</h2>
             <p class="feature-description">Kami juga menyajikan berita terkini seputar dunia pertanian. Dapatkan informasi terbaru mengenai produk hasil pertanian, teknik pertanian terbaru, dan berita pertanian menarik lainnya.</p>

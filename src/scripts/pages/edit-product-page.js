@@ -66,6 +66,7 @@ const EditProductPage = {
       } catch (e) {
         console.log(e.message);
       } finally {
+        // eslint-disable-next-line no-alert
         alert('Succesfully Updated.');
       }
     });
@@ -77,6 +78,7 @@ const EditProductPage = {
       } catch (e) {
         console.log(e.message);
       } finally {
+        // eslint-disable-next-line no-alert
         alert('Succesfully Deleted.');
         location.href = '#/profile';
       }

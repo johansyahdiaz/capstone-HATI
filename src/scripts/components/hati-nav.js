@@ -11,7 +11,7 @@ class hatiNav extends HTMLElement {
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
               <a class="navbar-brand mb-0 h1" href="#">
-                <img src="./favicon.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                <img class="lazyload" crossorigin="anonymous" src="./favicon.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                 HATI
               </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
