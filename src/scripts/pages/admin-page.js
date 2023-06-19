@@ -11,9 +11,10 @@ const AdminPage = {
     const user = await UserData.getUserData(UserInfo.getUserInfo().uid);
 
     if (user.isAdmin) {
+      /* html */
       return `
       <style>
-        .admin-page {
+      .admin-page {
           display: flex;
           min-width: 100%;
           min-height: 1000px;
@@ -263,6 +264,7 @@ const AdminPage = {
           color: white;
           transition: 0.3s;
         }
+
         #editNewsForm button:hover{
           border-style: none;
           background-color: white;
@@ -270,6 +272,55 @@ const AdminPage = {
           width: 40%;
           color: #1B9C85;
         }
+
+        @media (max-width: 1245px) {
+          main {
+            display: block;
+            width: fit-content;
+          }
+          
+          .admin-page {
+            display: block;
+          }
+
+          hati-nav,
+          hati-footer {
+            width: 100%;
+          }
+
+          .navbar-admin {
+            width: 100%;
+            margin-bottom: 10px;
+          }
+        }
+        
+        @media (max-width: 550px) {
+          body, html {
+            width: fit-content;
+          }
+
+          hati-nav,
+          hati-footer {
+            width: 100%;
+          }
+
+          main {
+            display: block;
+            transition: all 0.3s;
+          }
+
+          .admin-page {
+            display: block;
+          }
+
+          .navbar-admin {
+            width: 100%;
+            margin-bottom: 10px;
+          }
+        
+        }
+
+        
       </style>
       <div class="admin-page">
         <div class="navbar-admin">

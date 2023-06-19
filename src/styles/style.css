@@ -919,7 +919,11 @@ ul {
   }
 
   .news-item {
-    width: fit-content;
+    font-size: 12px;
+  }
+
+  .news-detail-container p {
+    width: 100%;
   }
 
   .form-search-product {
