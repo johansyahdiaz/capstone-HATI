@@ -112,6 +112,7 @@ const ProfilePage = {
         console.log(e.message);
       } finally {
         this.render();
+        // eslint-disable-next-line no-alert
         alert('Succesfully Updated.');
       }
     });

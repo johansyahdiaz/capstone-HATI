@@ -310,6 +310,7 @@ const AdminPage = {
       </div>
     `;
     }
+    // eslint-disable-next-line no-alert
     alert('403 : Unauthorized');
     location.href = '#/';
 

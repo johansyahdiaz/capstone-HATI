@@ -8,7 +8,7 @@ const AddProductPage = {
     <div class="add-product-container">
     <form name="addProductForm" id="addProductForm" method="POST" enctype="multipart/form-data">
           <div>
-            <img id="product-photo" src="./images/produkPic.jpg">
+            <img id="product-photo" src="./Images/produkPic.jpg">
           </div>
           <p>Click to add product image. </p>
           <input placeholder="Product Name" name="productName" required>

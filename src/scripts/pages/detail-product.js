@@ -53,7 +53,7 @@ const DetailProductPage = {
     const buyNow = document.querySelector('#buy-now');
     buyNow.addEventListener('click', (event) => {
       event.preventDefault();
-      location.href = `https://wa.me/${store.phone}`;
+      window.open(`https://wa.me/${store.phone}`, '_blank');
     });
 
     storeDetail.innerHTML = `
